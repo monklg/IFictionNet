@@ -18,18 +18,18 @@ namespace ClassLibrary1
         West
     }
 
-    public class Side
+    public class PlaceDirection
     {
         private readonly SideType sideType;
-        private readonly SpaceConnection space;
+        private readonly PlaceConnection space;
         private readonly IEnumerable<Stuff> stuff = new List<Stuff>();
 
-        public Side(SideType sideType)
+        public PlaceDirection(SideType sideType)
         {
             this.sideType = sideType;
         }
 
-        public SpaceConnection Space { get; set; }
+        public PlaceConnection Space { get; set; }
 
         public IEnumerable<Stuff> Stuff => stuff;
     }
@@ -45,12 +45,12 @@ namespace ClassLibrary1
         public string Description { get; set; }
     }
 
-    public class SpaceConnection
+    public class PlaceConnection
     {
-        private readonly Space space;
+        private readonly Place space;
         private readonly IEnumerable<Block> blockedBy;
 
-        public SpaceConnection(Space space, IEnumerable<Block> blockedBy)
+        public PlaceConnection(Place space, IEnumerable<Block> blockedBy)
         {
             this.space = space;
             this.blockedBy = blockedBy;
@@ -74,20 +74,20 @@ namespace ClassLibrary1
 
     }
 
-    public class Space
+    public class Place
     {
-        private IDictionary<SideType, Side> sides = new Dictionary<SideType, Side>(4)
+        private IDictionary<SideType, PlaceDirection> sides = new Dictionary<SideType, PlaceDirection>(4)
         {
-            { SideType.North, new Side(SideType.North) },
-            { SideType.South, new Side(SideType.South) },
-            { SideType.West, new Side(SideType.West) },
-            { SideType.East, new Side(SideType.East) }
+            { SideType.North, new PlaceDirection(SideType.North) },
+            { SideType.South, new PlaceDirection(SideType.South) },
+            { SideType.West, new PlaceDirection(SideType.West) },
+            { SideType.East, new PlaceDirection(SideType.East) }
         };
 
         public string Description { get; }
         private IEnumerable<Stuff> stuffs = new List<Stuff>();
 
-        public Space(string description)
+        public Place(string description)
         {
             this.Description = description;
         }
@@ -102,7 +102,7 @@ namespace ClassLibrary1
             this.stuffs.Concat(stuffs);
         }
 
-        public void AddSpaceConnectionTo(SideType sideType, SpaceConnection spaceConnection)
+        public void AddSpaceConnectionTo(SideType sideType, PlaceConnection spaceConnection)
         {
             sides[sideType].Space = spaceConnection;
         }

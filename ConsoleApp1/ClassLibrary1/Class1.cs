@@ -20,17 +20,8 @@ namespace ClassLibrary1
 
     public class PlaceDirection
     {
-        private readonly SideType sideType;
-        private readonly PlaceConnection space;
         private readonly IEnumerable<Stuff> stuff = new List<Stuff>();
-
-        public PlaceDirection(SideType sideType)
-        {
-            this.sideType = sideType;
-        }
-
-        public PlaceConnection Space { get; set; }
-
+        
         public IEnumerable<Stuff> Stuff => stuff;
     }
 
@@ -45,7 +36,7 @@ namespace ClassLibrary1
         public string Description { get; set; }
     }
 
-    public class PlaceConnection
+    public class PlaceConnection : Stuff
     {
         private readonly Place space;
         private readonly IEnumerable<Block> blockedBy;
@@ -78,10 +69,10 @@ namespace ClassLibrary1
     {
         private IDictionary<SideType, PlaceDirection> sides = new Dictionary<SideType, PlaceDirection>(4)
         {
-            { SideType.North, new PlaceDirection(SideType.North) },
-            { SideType.South, new PlaceDirection(SideType.South) },
-            { SideType.West, new PlaceDirection(SideType.West) },
-            { SideType.East, new PlaceDirection(SideType.East) }
+            { SideType.North, new PlaceDirection() },
+            { SideType.South, new PlaceDirection() },
+            { SideType.West, new PlaceDirection() },
+            { SideType.East, new PlaceDirection() }
         };
 
         public string Description { get; }
@@ -102,9 +93,9 @@ namespace ClassLibrary1
             this.stuffs.Concat(stuffs);
         }
 
-        public void AddSpaceConnectionTo(SideType sideType, PlaceConnection spaceConnection)
+        public void AddPlaceConnectionTo(SideType sideType, PlaceConnection spaceConnection)
         {
-            sides[sideType].Space = spaceConnection;
+            sides[sideType].Stuff.First(spaceConnection => spaceConnection as PlaceCo) = spaceConnection;
         }
 
         public void Go()

@@ -15,6 +15,7 @@ namespace ConsoleApp1
             myRoom.AddStuff(new List<Stuff>() { new Stuff("Это мой диван") });
             myRoom.AddStuffTo(SideType.East,new List<Stuff>() { new Stuff("Светильник в виде луны висит на стене") });
             var coridor = new Space("Это коридор");
+
             myRoom.AddSpaceConnectionTo(SideType.East, new SpaceConnection(coridor, new List<Block>() { new Door(), new Wall() }));
         }
     }

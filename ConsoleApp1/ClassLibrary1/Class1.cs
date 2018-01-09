@@ -22,7 +22,9 @@ namespace ClassLibrary1
     {
         private readonly IEnumerable<Stuff> stuff = new List<Stuff>();
         
-        public IEnumerable<Stuff> Stuff => stuff;
+        public IEnumerable<Stuff> Stuff { get; set; }
+
+        public PlaceConnection PlaceConnection { get; set; }
     }
 
     public class Stuff
@@ -36,7 +38,7 @@ namespace ClassLibrary1
         public string Description { get; set; }
     }
 
-    public class PlaceConnection : Stuff
+    public class PlaceConnection 
     {
         private readonly Place space;
         private readonly IEnumerable<Block> blockedBy;
@@ -75,7 +77,7 @@ namespace ClassLibrary1
             { SideType.East, new PlaceDirection() }
         };
 
-        public string Description { get; }
+        public string Description { get; private set; }
         private IEnumerable<Stuff> stuffs = new List<Stuff>();
 
         public Place(string description)
@@ -93,9 +95,9 @@ namespace ClassLibrary1
             this.stuffs.Concat(stuffs);
         }
 
-        public void AddPlaceConnectionTo(SideType sideType, PlaceConnection spaceConnection)
+        public void AddPlaceConnectionTo(SideType sideType, PlaceConnection placeConnection)
         {
-            sides[sideType].Stuff.First(spaceConnection => spaceConnection as PlaceCo) = spaceConnection;
+            sides[sideType].PlaceConnection = placeConnection;
         }
 
         public void Go()

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="PlaceConnector.cs" />
+    <Compile Include="StoryBuilder.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Place.cs" />

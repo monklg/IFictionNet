@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Security.Policy;
 using ClassLibrary1;
 
 namespace ConsoleApp1
@@ -62,6 +64,20 @@ namespace ConsoleApp1
                 Done();
 
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.South);
+
+            var player = new Player();
+            new StoryBuilder()
+                .CreatePlace("возле кровати")
+                .PutPlayer(player)
+                .AddStuff(wall, DirectionType.West, DirectionType.South)
+                .ConnectWith(new Place("возле двери"), DirectionType.North)
+                .ConnectWith(new Place("кровать"), DirectionType.East)
+                .MoveTo(DirectionType.North)
+                .WhenEnterShowDescription("sfsf")
+                .AddStuff(wall, DirectionType.North)
+                .ConnectWith(new Place("коридор"), DirectionType.West, new List<Block>{new Door()})
+                .
+
         }
     }
 }

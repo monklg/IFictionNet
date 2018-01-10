@@ -1,25 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace ClassLibrary1
 {
     public class Passage
     {
+        private readonly Place _placeFrom;
+        private readonly Place _placeTo;
 
-        private readonly IList<Place> _places = new List<Place>(2);
         public ICollection<Block> BlockedBy { get; set; }
 
         public Passage(Place placeFrom, Place placeTo, ICollection<Block> blockedBy = null)
         {
-            this._places.Add(placeFrom);
-            this._places.Add(placeTo);
+            this._placeFrom = placeFrom;
+            this._placeTo = placeTo;
             this.BlockedBy = blockedBy;
         }
 
         public void Pass()
         {
-            var placeFrom = this._places.First(p => p.Player != null);
-            var placeTo = this._places.First(p => p.Player == null);
+            var placeFrom = this.GetPlaces().First(p => p.Player != null);
+            var placeTo = this.GetPlaces().First(p => p.Player == null);
             placeTo.Player = placeFrom.Player;
             placeFrom.PlayerGone();
         }
@@ -34,7 +36,13 @@ namespace ClassLibrary1
 
         public Place GetPlaceTo()
         {
-            return this._places.First(p => p.Player == null);
+            return _placeTo;
         }
+
+        public IEnumerable<Place> GetPlaces()
+        {
+            yield return _placeFrom;
+            yield return _placeTo;
+        } 
     }
 }

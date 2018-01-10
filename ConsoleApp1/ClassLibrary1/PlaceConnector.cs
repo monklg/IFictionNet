@@ -34,7 +34,7 @@ namespace ClassLibrary1
 
         }
 
-        public void Done()
+        public PlaceConnector Done()
         {
             var passage = new Passage(_placeFrom, _placeTo, _blocks);
             var direction = _placeFrom.Directions[_directionType];
@@ -42,6 +42,9 @@ namespace ClassLibrary1
             var placeTo = passage.GetPlaceTo();
             var directionTo = placeTo.Directions[direction.OppositeDirection];
             directionTo.Passage = passage;
+            _blocks = null;
+
+            return this;
         }
     }
 }

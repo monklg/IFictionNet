@@ -20,26 +20,25 @@ namespace ConsoleApp1
             var centralBottom = new Place(descript);
 
             leftCornerBottom.AddStuffToDirection(wall, DirectionType.West, DirectionType.South);
-            leftCornerBottom.AddPassageTo(DirectionType.North, new Passage(leftCornerBottom,leftCornerUp));
-            leftCornerBottom.AddPassageTo(DirectionType.East, new Passage(leftCornerBottom, centralBottom));
+            new PlaceConnector().Connect(leftCornerBottom).With(leftCornerUp).SetDirection(DirectionType.North).Done();
+            new PlaceConnector().Connect(leftCornerBottom).With(centralBottom).SetDirection(DirectionType.East).Done();
             
             leftCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            leftCornerUp.AddPassageTo(DirectionType.West, new Passage(leftCornerUp,coridor, new Collection<Block> { new Door() }));
-            leftCornerUp.AddPassageTo(DirectionType.East, new Passage(leftCornerUp,rightCornerUp));
+            new PlaceConnector().Connect(leftCornerUp).With(coridor).SetDirection(DirectionType.West).PassageBlockedBy(new Collection<Block> { new Door() }).Done();
+            new PlaceConnector().Connect(leftCornerUp).With(rightCornerUp).SetDirection(DirectionType.East).Done();
 
             centalUp.AddStuffToDirection(wall, DirectionType.North);
-            centalUp.AddPassageTo(DirectionType.East, new Passage(centalUp,rightCornerUp));
-            centalUp.AddPassageTo(DirectionType.South, new Passage(centalUp,centralBottom));
+            new PlaceConnector().Connect(centalUp).With(rightCornerUp).SetDirection(DirectionType.East).Done();
+            new PlaceConnector().Connect(centalUp).With(centralBottom).SetDirection(DirectionType.South).Done();
 
             rightCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            rightCornerUp.AddPassageTo(DirectionType.East, new Passage(rightCornerUp,street, new Collection<Block> { new Window() }));
-            rightCornerUp.AddPassageTo(DirectionType.South, new Passage(rightCornerUp,rightCornerBottom));
+            new PlaceConnector().Connect(rightCornerUp).With(street).SetDirection(DirectionType.East).PassageBlockedBy(new Collection<Block> { new Window() }).Done();
+            new PlaceConnector().Connect(rightCornerUp).With(rightCornerBottom).SetDirection(DirectionType.South).Done();
 
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.East,DirectionType.South);
-            rightCornerBottom.AddPassageTo(DirectionType.West, new Passage(rightCornerBottom,centralBottom));
+            new PlaceConnector().Connect(rightCornerBottom).With(centralBottom).SetDirection(DirectionType.West).Done();
 
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.South);
-
         }
     }
 }

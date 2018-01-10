@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="PlaceConnector.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Place.cs" />

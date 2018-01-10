@@ -28,14 +28,6 @@ namespace ClassLibrary1
             this.stuffs.Concat(stuffs);
         }
 
-        public void AddPassageTo(DirectionType sideType, Passage passage)
-        {
-            var direction = _directions[sideType];
-            direction.Passage = passage;
-            var placeTo = passage.GetPlaceTo();
-            placeTo.AddPassageTo(direction.OppositeDirection, passage);
-        }
-
         public void Go()
         {
         }
@@ -54,6 +46,16 @@ namespace ClassLibrary1
 
         public Player Player { get; set; }
 
+        public bool IsVisited { get; private set; }
+
+        public IDictionary<DirectionType, PlaceDirection> Directions
+        {
+            get
+            {
+                return _directions;
+            }
+        }
+
         public void AddStuffToDirection( Wall wall, params DirectionType[] directionType)
         {
             foreach (var dirType in directionType)
@@ -71,7 +73,7 @@ namespace ClassLibrary1
     }
 
     public class Player
-
     {
+
     }
 }

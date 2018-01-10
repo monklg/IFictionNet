@@ -20,12 +20,18 @@ namespace ClassLibrary1
 
         public DirectionType Direction
         {
-            get { return _direction; }
+            get
+            {
+                return _direction;
+            }
         }
 
         public DirectionType OppositeDirection
         {
-            get { return _oppositeDirection; }
+            get
+            {
+                return _oppositeDirection;
+            }
         }
     }
 }

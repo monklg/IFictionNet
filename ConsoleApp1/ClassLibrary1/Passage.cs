@@ -18,15 +18,18 @@ namespace ClassLibrary1
 
         public void Pass()
         {
-            if (BlockedBy != null && BlockedBy.All(bl=>bl.IsBlocking))
-            {
-              //Can't pass message   
-            }
-
             var placeFrom = this._places.First(p => p.Player != null);
             var placeTo = this._places.First(p => p.Player == null);
             placeTo.Player = placeFrom.Player;
             placeFrom.PlayerGone();
+        }
+
+        public bool Blocked
+        {
+            get
+            {
+                return BlockedBy != null && BlockedBy.All(bl => bl.IsBlocking);
+            }
         }
 
         public Place GetPlaceTo()

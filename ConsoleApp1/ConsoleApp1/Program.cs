@@ -20,6 +20,11 @@ namespace ConsoleApp1
             var centralBottom = new Place(descript);
 
             leftCornerBottom.AddStuffToDirection(wall, DirectionType.West, DirectionType.South);
+            leftCornerUp.AddStuffToDirection(wall, DirectionType.North);
+            centalUp.AddStuffToDirection(wall, DirectionType.North);
+            rightCornerUp.AddStuffToDirection(wall, DirectionType.North);
+            rightCornerBottom.AddStuffToDirection(wall, DirectionType.East, DirectionType.South);
+
             new PlaceConnector().
                 Connect(leftCornerBottom).
                 With(leftCornerUp).
@@ -27,10 +32,7 @@ namespace ConsoleApp1
                 Done().
                 With(centralBottom).
                 SetDirection(DirectionType.East).
-                Done();
-            
-            leftCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            new PlaceConnector().
+                Done().
                 Connect(leftCornerUp).
                 With(coridor).
                 SetDirection(DirectionType.West).
@@ -38,20 +40,14 @@ namespace ConsoleApp1
                 Done().
                 With(rightCornerUp).
                 SetDirection(DirectionType.East).
-                Done();
-
-            centalUp.AddStuffToDirection(wall, DirectionType.North);
-            new PlaceConnector().
+                Done().
                 Connect(centalUp).
                 With(rightCornerUp).
                 SetDirection(DirectionType.East).
                 Done().
                 With(centralBottom).
                 SetDirection(DirectionType.South).
-                Done();
-
-            rightCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            new PlaceConnector().
+                Done().
                 Connect(rightCornerUp).
                 With(street).
                 SetDirection(DirectionType.East).
@@ -59,10 +55,7 @@ namespace ConsoleApp1
                 Done().
                 With(rightCornerBottom).
                 SetDirection(DirectionType.South).
-                Done();
-
-            rightCornerBottom.AddStuffToDirection(wall, DirectionType.East,DirectionType.South);
-            new PlaceConnector().
+                Done().
                 Connect(rightCornerBottom).
                 With(centralBottom).
                 SetDirection(DirectionType.West).

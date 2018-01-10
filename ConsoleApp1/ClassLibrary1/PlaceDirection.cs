@@ -16,7 +16,7 @@ namespace ClassLibrary1
 
         public ICollection<IStuff> Stuff { get { return (ICollection<IStuff>) _stuff; } }
 
-        public PlaceConnection PlaceConnection { get; set; }
+        public Passage Passage { get; set; }
 
         public DirectionType Direction
         {

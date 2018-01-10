@@ -4,6 +4,6 @@
     {
 
         public string Description { get; set; }
-
+        public bool IsBlocking { get; private set; }
     }
 }

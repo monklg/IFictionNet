@@ -28,10 +28,12 @@ namespace ClassLibrary1
             this.stuffs.Concat(stuffs);
         }
 
-        public void AddPlaceConnectionTo(DirectionType sideType, PlaceConnection placeConnection)
+        public void AddPassageTo(DirectionType sideType, Passage passage)
         {
-            _directions[sideType].PlaceConnection = placeConnection;
-            placeConnection.Place.AddPlaceConnectionTo(_directions[sideType].OppositeDirection,placeConnection);
+            var direction = _directions[sideType];
+            direction.Passage = passage;
+            var placeTo = passage.GetPlaceTo();
+            placeTo.AddPassageTo(direction.OppositeDirection, passage);
         }
 
         public void Go()
@@ -50,7 +52,7 @@ namespace ClassLibrary1
 
         public string Description { get; private set; }
 
-        private IEnumerable<Stuff> stuffs = new List<Stuff>();
+        public Player Player { get; set; }
 
         public void AddStuffToDirection( Wall wall, params DirectionType[] directionType)
         {
@@ -59,5 +61,17 @@ namespace ClassLibrary1
                 _directions[dirType].Stuff.Add(wall);
             }
         }
+
+        public void PlayerGone()
+        {
+            this.Player = null;
+        }
+
+        private IEnumerable<Stuff> stuffs = new List<Stuff>();
+    }
+
+    public class Player
+
+    {
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using ClassLibrary1;
 
@@ -66,17 +68,43 @@ namespace ConsoleApp1
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.South);
 
             var player = new Player();
+
+            var bedPlace = new Place("кровать");
+
             new StoryBuilder()
                 .CreatePlace("возле кровати")
                 .PutPlayer(player)
                 .AddStuff(wall, DirectionType.West, DirectionType.South)
                 .ConnectWith(new Place("возле двери"), DirectionType.North)
                 .ConnectWith(new Place("кровать"), DirectionType.East)
+
                 .MoveTo(DirectionType.North)
-                .WhenEnterShowDescription("sfsf")
                 .AddStuff(wall, DirectionType.North)
-                .ConnectWith(new Place("коридор"), DirectionType.West, new List<Block>{new Door()})
-                .
+                .ConnectWith(new Place("коридор"), DirectionType.West, new List<Block> {new Door()})
+                .ConnectWith(new Place("Возле подножья"), DirectionType.East)
+
+
+
+                .MoveTo(DirectionType.East)
+                .AddStuff(wall, DirectionType.North)
+                .ConnectWith(bedPlace, DirectionType.South)
+                .ConnectWith(new Place("У окна"), DirectionType.East)
+
+                .MoveTo(DirectionType.East)
+                .AddStuff(wall, DirectionType.North)
+                .ConnectWith(new Place("улица"), DirectionType.East, new List<Block> {new Window()})
+                .ConnectWith(new Place("С другой стороны кровати"), DirectionType.South)
+
+                .MoveTo(DirectionType.South)
+                .AddStuff(wall, DirectionType.East, DirectionType.South)
+                .ConnectWith(bedPlace, DirectionType.West)
+                 
+                .MoveTo(DirectionType.West)
+                .MoveTo(DirectionType.North)
+                .MoveTo(DirectionType.West)
+
+
+
 
         }
     }

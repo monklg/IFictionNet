@@ -6,7 +6,7 @@ namespace ClassLibrary1
     {
         private readonly DirectionType _direction;
         private readonly DirectionType _oppositeDirection;
-        private readonly ICollection<Stuff> _stuff = new List<Stuff>();
+        private readonly ICollection<IStuff> _stuff = new List<IStuff>();
 
         public PlaceDirection(DirectionType direction, DirectionType oppositeDirection)
         {

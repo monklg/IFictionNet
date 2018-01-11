@@ -40,18 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Block.cs" />
-    <Compile Include="PlaceConnector.cs" />
-    <Compile Include="StoryBuilder.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="Door.cs" />
-    <Compile Include="Place.cs" />
-    <Compile Include="Passage.cs" />
-    <Compile Include="PlaceDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DirectionType.cs" />
     <Compile Include="Stuff.cs" />
     <Compile Include="Wall.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IFCore\IFCore.csproj">
+      <Project>{F8C5D12D-FFC4-481F-B660-DD5578891878}</Project>
+      <Name>IFCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

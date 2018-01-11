@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using IFCore;
+
 namespace ClassLibrary1
 {
     public class StoryBuilder
@@ -6,6 +8,9 @@ namespace ClassLibrary1
         private IList<Place> _places = new List<Place>();
         private Place _currentPlace;
         private Player _player;
+        private StoryOpening _storyOpening = new StoryOpening();
+        private StoryСhapter _currentStoryChapter;
+        private StoryParts _storyParts = new StoryParts();
 
 
         public StoryBuilder(Player player)
@@ -17,6 +22,43 @@ namespace ClassLibrary1
         {
             _currentPlace = new Place(description);
             _places.Add(_currentPlace);
+
+            return this;
+        }
+
+        public StoryBuilder CreateStoryOpeningTitle(string title)
+        {
+            _storyOpening.Text.Title = title;
+
+            return this;
+        }
+
+        public StoryBuilder CreateStoryOpeningText(string text)
+        {
+            _storyOpening.Text.Body = text;
+
+            return this;
+        }
+
+        public StoryBuilder CreateChapter()
+        {
+            _currentStoryChapter = new StoryСhapter();
+            _currentStoryChapter.Places = _places;
+            _storyParts.Add(_currentStoryChapter);
+
+            return this;
+        }
+
+        public StoryBuilder CreateChapterOpeningTitle(string title)
+        {
+            _currentStoryChapter.StoryOpening.Text.Title = title;
+
+            return this;
+        }
+
+        public StoryBuilder CreateChapterOpeningText(string text)
+        {
+            _currentStoryChapter.StoryOpening.Text.Body = text;
 
             return this;
         }
@@ -49,6 +91,12 @@ namespace ClassLibrary1
             }
 
             return this;
+        }
+
+        public Story GenerateStory()
+        {
+            var story = new Story(_storyOpening, _storyParts, new StoryEnd());
+            return story;
         }
     }
 }

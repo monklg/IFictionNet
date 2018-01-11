@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+using ClassLibrary1;
 
 namespace IFCore
 {
     public class Story
     {
-        private StoryIntro _intro;
+        private StoryOpening _opening;
         private readonly StoryParts _parts;
         private StoryEnd _end;
 
-        public Story(StoryIntro intro, StoryParts parts, StoryEnd end)
+        public Story(StoryOpening opening, StoryParts parts, StoryEnd end)
         {
-            _intro = intro;
+            _opening = opening;
             _parts = parts;
             _end = end;
         }
@@ -20,7 +20,7 @@ namespace IFCore
 
         public IEnumerable<StoryItem> Start()
         {
-            yield return _intro;
+            yield return _opening;
 
             foreach (var storyPart in _parts)
             {
@@ -38,9 +38,10 @@ namespace IFCore
     {
     }
 
-    public class StoryParts : IEnumerable<StoryPart>
+    public class StoryParts : IEnumerable<StoryСhapter>
     {
-        public IEnumerator<StoryPart> GetEnumerator()
+        
+        public IEnumerator<StoryСhapter> GetEnumerator()
         {
             throw new System.NotImplementedException();
         }
@@ -49,10 +50,18 @@ namespace IFCore
         {
             return GetEnumerator();
         }
+
+        public void Add(StoryСhapter currentStoryChapter)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
-    public class StoryPart : IEnumerable<StoryItem>
+    public class StoryСhapter : StoryItem, IEnumerable<StoryItem>
     {
+        public StoryOpening StoryOpening { get; set; }
+        public IList<Place> Places { get; set; }
+
         public IEnumerator<StoryItem> GetEnumerator()
         {
             throw new System.NotImplementedException();
@@ -64,8 +73,26 @@ namespace IFCore
         }
     }
 
-    public class StoryIntro : StoryItem
+    public class StoryOpening : StoryItem
     {
+        private Description _text=new Description();
+
+        public void Start()
+        {
+            
+        }
+
+        public Description Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+    }
+
+    public class Description
+    {
+        public string Title { get; set; }
+        public string Body { get; set; }
     }
 
     public class StoryItem

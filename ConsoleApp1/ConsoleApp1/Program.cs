@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Policy;
+﻿using System;
 using ClassLibrary1;
+using IFCore;
 
 namespace ConsoleApp1
 {
@@ -11,101 +8,51 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            var descript = "Моя спальня. Я тут сплю.";
-            var wall = new Wall();
-
-            var leftCornerBottom = new Place(descript);
-            var leftCornerUp = new Place(descript);
-            var coridor = new Place("коридор");
-            var street = new Place("улица");
-            var centalUp = new Place(descript);
-            var rightCornerUp = new Place(descript);
-            var rightCornerBottom = new Place(descript);
-            var centralBottom = new Place(descript);
-
-            leftCornerBottom.AddStuffToDirection(wall, DirectionType.West, DirectionType.South);
-            leftCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            centalUp.AddStuffToDirection(wall, DirectionType.North);
-            rightCornerUp.AddStuffToDirection(wall, DirectionType.North);
-            rightCornerBottom.AddStuffToDirection(wall, DirectionType.East, DirectionType.South);
-
-            //new PlaceConnector().
-            //    Connect(leftCornerBottom).
-            //    With(leftCornerUp).
-            //    SetDirection(DirectionType.North).
-            //    Done().
-            //    With(centralBottom).
-            //    SetDirection(DirectionType.East).
-            //    Done().
-            //    Connect(leftCornerUp).
-            //    With(coridor).
-            //    SetDirection(DirectionType.West).
-            //    PassageBlockedBy(new Collection<Block> { new Door() }).
-            //    Done().
-            //    With(rightCornerUp).
-            //    SetDirection(DirectionType.East).
-            //    Done().
-            //    Connect(centalUp).
-            //    With(rightCornerUp).
-            //    SetDirection(DirectionType.East).
-            //    Done().
-            //    With(centralBottom).
-            //    SetDirection(DirectionType.South).
-            //    Done().
-            //    Connect(rightCornerUp).
-            //    With(street).
-            //    SetDirection(DirectionType.East).
-            //    PassageBlockedBy(new Collection<Block> { new Window() }).
-            //    Done().
-            //    With(rightCornerBottom).
-            //    SetDirection(DirectionType.South).
-            //    Done().
-            //    Connect(rightCornerBottom).
-            //    With(centralBottom).
-            //    SetDirection(DirectionType.West).
-            //    Done();
-
-            rightCornerBottom.AddStuffToDirection(wall, DirectionType.South);
-
             var player = new Player();
 
-            var bedPlace = new Place("кровать");
+            var authorInfo = new AuthorInfo();
+            authorInfo.AuthorName = "Колмаков Павел";
+            authorInfo.GameCreated = DateTime.Today;
+            authorInfo.GenreDescription = "Комедийная тестовая игра";
+            authorInfo.AuthorWords = "Это первая игра на разрабатываемом движке";
 
+            var opening = new StoryOpening();
+            var openingText = new Description();
+            openingText.Title = "Работать так чтобы Сталин спасибо сказал!";
+            openingText.Body = "Хорошое сегодня утро! Пока ты ехал на работу, казалось, все тебе говорило об этом! Когда ты вошел в офисное здание, охрана поприветствовала тебя как буд-то ты старый знакомый. Двери открывались легко. Твое кресло удобное и свет экрана монитора сегодня не резал глаз.";
+            opening.Text = openingText;
 
-
-            new StoryBuilder(player)
-                .CreatePlace("возле кровати")
+            var newStory = new StoryBuilder(player)
+                .CreateStoryOpeningTitle("Работать так чтобы Сталин спасибо сказал!")
+                .CreateStoryOpeningText(
+                    "Хорошое сегодня утро! Пока ты ехал на работу, казалось, все тебе говорило об этом! Когда ты вошел в офисное здание, охрана поприветствовала тебя как буд-то ты старый знакомый. Двери открывались легко. Твое кресло удобное и свет экрана монитора сегодня не резал глаз.")
+                .CreateChapter()
+                .CreateChapterOpeningTitle("На работе")
+                .CreateChapterOpeningText("Ты удобно уселся за свой рабочий стол и готов работать")
+                .CreatePlace("Твое рабочее место")
                 .SetAsStartPoint()
-                .AddStuff(wall, DirectionType.West, DirectionType.South)
-                .ConnectWith(new Place("возле двери"), DirectionType.North)
-                .ConnectWith(new Place("кровать"), DirectionType.East)
+                .AddStuff(new Stuff("Монитор"), DirectionType.North)
+                .AddStuff(new Stuff("Клавиатура"), DirectionType.North)
+                .AddStuff(new Stuff("Мышь"), DirectionType.North)
+                .AddStuff(new Stuff("Кружка кофе"), DirectionType.North)
+                .AddStuff(new Stuff("Стол"), DirectionType.North)
+                .AddStuff(new Stuff("Блокнот"), DirectionType.North)
+                .AddStuff(new Stuff("Ручка"), DirectionType.North)
+                .AddStuff(new Wall(), DirectionType.South)
+                .GenerateStory();
+            
+            var mortalJob = new Game(newStory,authorInfo);
+            var consoleReader = new ConsoleReader();
+            var gamePlayer = new GamePlayer(mortalJob, new Parser());
 
-                .MoveTo(DirectionType.North)
-                .AddStuff(wall, DirectionType.North)
-                .ConnectWith(new Place("коридор"), DirectionType.West, new List<Block> {new Door()})
-                .ConnectWith(new Place("Возле подножья"), DirectionType.East)
-
-                .MoveTo(DirectionType.East)
-                .AddStuff(wall, DirectionType.North)
-                .ConnectWith(bedPlace, DirectionType.South)
-                .ConnectWith(new Place("У окна"), DirectionType.East)
-
-                .MoveTo(DirectionType.East)
-                .AddStuff(wall, DirectionType.North)
-                .ConnectWith(new Place("улица"), DirectionType.East, new List<Block> {new Window()})
-                .ConnectWith(new Place("С другой стороны кровати"), DirectionType.South)
-
-                .MoveTo(DirectionType.South)
-                .AddStuff(wall, DirectionType.East, DirectionType.South)
-                .ConnectWith(bedPlace, DirectionType.West)
-                 
-                .MoveTo(DirectionType.West)
-                .MoveTo(DirectionType.North)
-                .MoveTo(DirectionType.West)
-
-
-
-
+            while (true)
+            {
+                var input = Console.ReadLine();
+                var output = gamePlayer.Play(input);
+                consoleReader.Run(output);
+            }
+            
         }
+
     }
 }

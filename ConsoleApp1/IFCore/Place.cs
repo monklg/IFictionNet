@@ -18,12 +18,12 @@ namespace ClassLibrary1
             this.Description = description;
         }
 
-        public void AddStuffTo(DirectionType sideType, IEnumerable<Stuff> stuffs)
+        public void AddStuffTo(DirectionType sideType, IEnumerable<IStuff> stuffs)
         {
             _directions[sideType].Stuff.Concat(stuffs);
         }
 
-        public void AddStuff(IEnumerable<Stuff> stuffs)
+        public void AddStuff(IEnumerable<IStuff> stuffs)
         {
             this.stuffs.Concat(stuffs);
         }
@@ -56,20 +56,12 @@ namespace ClassLibrary1
             }
         }
 
-        public void AddStuffToDirection( Wall wall, params DirectionType[] directionType)
-        {
-            foreach (var dirType in directionType)
-            {
-                _directions[dirType].Stuff.Add(wall);
-            }
-        }
-
         public void PlayerGone()
         {
             this.Player = null;
         }
 
-        private IEnumerable<Stuff> stuffs = new List<Stuff>();
+        private IEnumerable<IStuff> stuffs = new List<IStuff>();
     }
 
     public class Player

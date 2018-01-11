@@ -53,6 +53,10 @@
       <Project>{CCBF7128-D941-4C39-8F4E-B17D61E5202C}</Project>
       <Name>ClassLibrary1</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IFCore\IFCore.csproj">
+      <Project>{F8C5D12D-FFC4-481F-B660-DD5578891878}</Project>
+      <Name>IFCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

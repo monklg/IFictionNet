@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{DFE38E13-E8BA-4970-80E2-ACF110D7CB93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{CCBF7128-D941-4C39-8F4E-B17D61E5202C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFParser", "IFParser\IFParser.csproj", "{D2957274-9E39-4927-8D25-3ACB91802B52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IFCore", "IFCore\IFCore.csproj", "{F8C5D12D-FFC4-481F-B660-DD5578891878}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{CCBF7128-D941-4C39-8F4E-B17D61E5202C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBF7128-D941-4C39-8F4E-B17D61E5202C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCBF7128-D941-4C39-8F4E-B17D61E5202C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2957274-9E39-4927-8D25-3ACB91802B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2957274-9E39-4927-8D25-3ACB91802B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2957274-9E39-4927-8D25-3ACB91802B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2957274-9E39-4927-8D25-3ACB91802B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C5D12D-FFC4-481F-B660-DD5578891878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C5D12D-FFC4-481F-B660-DD5578891878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C5D12D-FFC4-481F-B660-DD5578891878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8C5D12D-FFC4-481F-B660-DD5578891878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

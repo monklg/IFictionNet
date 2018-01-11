@@ -6,8 +6,13 @@ namespace ClassLibrary1
     {
         private Place _placeFrom;
         private Place _placeTo;
-        private DirectionType _directionType;
+        private readonly DirectionType _directionType;
         private ICollection<Block> _blocks;
+
+        public PlaceConnector(DirectionType directionType)
+        {
+            this._directionType = directionType;
+        }
 
         public PlaceConnector Connect(Place place)
         {
@@ -18,12 +23,6 @@ namespace ClassLibrary1
         public PlaceConnector With(Place place)
         {
             this._placeTo = place;
-            return this;
-        }
-
-        public PlaceConnector SetDirection(DirectionType directionType)
-        {
-            this._directionType = directionType;
             return this;
         }
 

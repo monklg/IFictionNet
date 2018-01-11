@@ -29,41 +29,41 @@ namespace ConsoleApp1
             rightCornerUp.AddStuffToDirection(wall, DirectionType.North);
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.East, DirectionType.South);
 
-            new PlaceConnector().
-                Connect(leftCornerBottom).
-                With(leftCornerUp).
-                SetDirection(DirectionType.North).
-                Done().
-                With(centralBottom).
-                SetDirection(DirectionType.East).
-                Done().
-                Connect(leftCornerUp).
-                With(coridor).
-                SetDirection(DirectionType.West).
-                PassageBlockedBy(new Collection<Block> { new Door() }).
-                Done().
-                With(rightCornerUp).
-                SetDirection(DirectionType.East).
-                Done().
-                Connect(centalUp).
-                With(rightCornerUp).
-                SetDirection(DirectionType.East).
-                Done().
-                With(centralBottom).
-                SetDirection(DirectionType.South).
-                Done().
-                Connect(rightCornerUp).
-                With(street).
-                SetDirection(DirectionType.East).
-                PassageBlockedBy(new Collection<Block> { new Window() }).
-                Done().
-                With(rightCornerBottom).
-                SetDirection(DirectionType.South).
-                Done().
-                Connect(rightCornerBottom).
-                With(centralBottom).
-                SetDirection(DirectionType.West).
-                Done();
+            //new PlaceConnector().
+            //    Connect(leftCornerBottom).
+            //    With(leftCornerUp).
+            //    SetDirection(DirectionType.North).
+            //    Done().
+            //    With(centralBottom).
+            //    SetDirection(DirectionType.East).
+            //    Done().
+            //    Connect(leftCornerUp).
+            //    With(coridor).
+            //    SetDirection(DirectionType.West).
+            //    PassageBlockedBy(new Collection<Block> { new Door() }).
+            //    Done().
+            //    With(rightCornerUp).
+            //    SetDirection(DirectionType.East).
+            //    Done().
+            //    Connect(centalUp).
+            //    With(rightCornerUp).
+            //    SetDirection(DirectionType.East).
+            //    Done().
+            //    With(centralBottom).
+            //    SetDirection(DirectionType.South).
+            //    Done().
+            //    Connect(rightCornerUp).
+            //    With(street).
+            //    SetDirection(DirectionType.East).
+            //    PassageBlockedBy(new Collection<Block> { new Window() }).
+            //    Done().
+            //    With(rightCornerBottom).
+            //    SetDirection(DirectionType.South).
+            //    Done().
+            //    Connect(rightCornerBottom).
+            //    With(centralBottom).
+            //    SetDirection(DirectionType.West).
+            //    Done();
 
             rightCornerBottom.AddStuffToDirection(wall, DirectionType.South);
 
@@ -71,9 +71,11 @@ namespace ConsoleApp1
 
             var bedPlace = new Place("кровать");
 
-            new StoryBuilder()
+
+
+            new StoryBuilder(player)
                 .CreatePlace("возле кровати")
-                .PutPlayer(player)
+                .SetAsStartPoint()
                 .AddStuff(wall, DirectionType.West, DirectionType.South)
                 .ConnectWith(new Place("возле двери"), DirectionType.North)
                 .ConnectWith(new Place("кровать"), DirectionType.East)
@@ -82,8 +84,6 @@ namespace ConsoleApp1
                 .AddStuff(wall, DirectionType.North)
                 .ConnectWith(new Place("коридор"), DirectionType.West, new List<Block> {new Door()})
                 .ConnectWith(new Place("Возле подножья"), DirectionType.East)
-
-
 
                 .MoveTo(DirectionType.East)
                 .AddStuff(wall, DirectionType.North)

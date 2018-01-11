@@ -5,7 +5,13 @@ namespace ClassLibrary1
     {
         private IList<Place> _places = new List<Place>();
         private Place _currentPlace;
+        private Player _player;
 
+
+        public StoryBuilder(Player player)
+        {
+            _player = player;
+        }
 
         public StoryBuilder CreatePlace(string description)
         {
@@ -15,9 +21,9 @@ namespace ClassLibrary1
             return this;
         }
 
-        public StoryBuilder PutPlayer(Player player)
+        public StoryBuilder SetAsStartPoint()
         {
-            _currentPlace.Player = player;
+            _currentPlace.Player = _player;
 
             return this;
         }
@@ -31,7 +37,7 @@ namespace ClassLibrary1
 
         public StoryBuilder ConnectWith(Place place, DirectionType directionType, List<Block> bloks = null )
         {
-            new PlaceConnector().Connect(_currentPlace).With(place).SetDirection(directionType).PassageBlockedBy(bloks).Done();
+            new PlaceConnector(directionType).Connect(_currentPlace).With(place).PassageBlockedBy(bloks).Done();
             return this;
         }
 

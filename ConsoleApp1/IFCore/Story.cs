@@ -6,9 +6,10 @@ namespace IFCore
 {
     public class Story
     {
-        private StoryOpening _opening;
+        private readonly StoryOpening _opening;
         private readonly StoryParts _parts;
         private StoryEnd _end;
+        private StoryOpening _storyOpening;
 
         public Story(StoryOpening opening, StoryParts parts, StoryEnd end)
         {
@@ -17,20 +18,19 @@ namespace IFCore
             _end = end;
         }
 
-
         public IEnumerable<StoryItem> Start()
         {
-            yield return _opening;
-
             foreach (var storyPart in _parts)
             {
-                foreach (var storyPartItem in storyPart)
-                {
-                    yield return storyPartItem;
-                }
+                yield return storyPart;
             }
 
             yield return _end;
+        }
+
+        public StoryOpening StoryOpening
+        {
+            get { return _storyOpening; }
         }
     }
 
@@ -40,26 +40,34 @@ namespace IFCore
 
     public class StoryParts : IEnumerable<StoryСhapter>
     {
+        private readonly IList<StoryСhapter> _chapters =new List<StoryСhapter>();
         
         public IEnumerator<StoryСhapter> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return _chapters.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return _chapters.GetEnumerator();
         }
 
         public void Add(StoryСhapter currentStoryChapter)
         {
-            throw new System.NotImplementedException();
+            _chapters.Add(currentStoryChapter);
         }
     }
 
     public class StoryСhapter : StoryItem, IEnumerable<StoryItem>
     {
-        public StoryOpening StoryOpening { get; set; }
+        private StoryOpening _storyOpening=new StoryOpening();
+
+        public StoryOpening StoryOpening
+        {
+            get { return _storyOpening; }
+            set { _storyOpening = value; }
+        }
+
         public IList<Place> Places { get; set; }
 
         public IEnumerator<StoryItem> GetEnumerator()

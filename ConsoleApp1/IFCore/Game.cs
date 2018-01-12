@@ -1,4 +1,8 @@
-﻿namespace IFCore
+﻿using System.Collections.Generic;
+using System.Linq;
+using ClassLibrary1;
+
+namespace IFCore
 {
     public class Game
     {
@@ -10,8 +14,19 @@
 
         private int _gameScore;
         private int _actionCount;
-        private Story _story;
-        private AuthorInfo _authorInfo;
+        private readonly Story _story;
+        private readonly AuthorInfo _authorInfo;
+
+        public AuthorInfo AuthorInfo
+        {
+            get { return _authorInfo; }
+        }
+        public StoryOpening StoryOpening
+        {
+            get { return _story.StoryOpening; }
+        }
+
+        public Story Story { get { return _story; } }
 
         public void Start(IEngine engine)
         {
@@ -37,10 +52,31 @@
             _parser = parser;
         }
 
-        public string Play(string input)
+
+        public IEnumerable<StoryItem> Play()
         {
-            _game.Start(this);
-            return null;
+            return _game.Story.Start();
         }
+
+        public IntroModel PlayIntro()
+        {
+            return new IntroModel
+            {
+                AuthorInfo = _game.AuthorInfo,
+                StoryOpening = _game.StoryOpening
+            };
+        }
+
+        public AuthorInfo GetAuthorInfo()
+        {
+            return _game.AuthorInfo;
+        }
+
+    }
+
+    public class IntroModel
+    {
+        public AuthorInfo AuthorInfo { get; set; }
+        public StoryOpening StoryOpening { get; set; }
     }
 }

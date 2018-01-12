@@ -6,7 +6,7 @@ namespace ConsoleApp1
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var player = new Player();
 
@@ -16,11 +16,11 @@ namespace ConsoleApp1
             authorInfo.GenreDescription = "Комедийная тестовая игра";
             authorInfo.AuthorWords = "Это первая игра на разрабатываемом движке";
 
-            var opening = new StoryOpening();
-            var openingText = new Description();
-            openingText.Title = "Работать так чтобы Сталин спасибо сказал!";
-            openingText.Body = "Хорошое сегодня утро! Пока ты ехал на работу, казалось, все тебе говорило об этом! Когда ты вошел в офисное здание, охрана поприветствовала тебя как буд-то ты старый знакомый. Двери открывались легко. Твое кресло удобное и свет экрана монитора сегодня не резал глаз.";
-            opening.Text = openingText;
+            //var opening = new StoryOpening();
+            //var openingText = new Description();
+            //openingText.Title = "Работать так чтобы Сталин спасибо сказал!";
+            //openingText.Body = "Хорошое сегодня утро! Пока ты ехал на работу, казалось, все тебе говорило об этом! Когда ты вошел в офисное здание, охрана поприветствовала тебя как буд-то ты старый знакомый. Двери открывались легко. Твое кресло удобное и свет экрана монитора сегодня не резал глаз.";
+            //opening.Text = openingText;
 
             var newStory = new StoryBuilder(player)
                 .CreateStoryOpeningTitle("Работать так чтобы Сталин спасибо сказал!")
@@ -40,19 +40,33 @@ namespace ConsoleApp1
                 .AddStuff(new Stuff("Ручка"), DirectionType.North)
                 .AddStuff(new Wall(), DirectionType.South)
                 .GenerateStory();
-            
-            var mortalJob = new Game(newStory,authorInfo);
+
+            var mortalJob = new Game(newStory, authorInfo);
             var consoleReader = new ConsoleReader();
             var gamePlayer = new GamePlayer(mortalJob, new Parser());
 
-            while (true)
+            var intro = gamePlayer.PlayIntro();
+
+            consoleReader.Run(intro);
+            foreach (var stroryItem in gamePlayer.Play())
             {
-                var input = Console.ReadLine();
-                var output = gamePlayer.Play(input);
-                consoleReader.Run(output);
+                
+                    var chapter = stroryItem as StoryСhapter;
+                    if (chapter != null)
+                    {
+                        consoleReader.Run(new IntroModel { StoryOpening = chapter.StoryOpening });
+                        while (true)
+                        {
+                            
+                            Console.ReadLine();
+
+                        }
+
+                }
             }
-            
         }
 
     }
-}
+
+    }
+
